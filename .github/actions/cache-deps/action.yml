@@ -7,6 +7,10 @@ inputs:
     description: "Flag to determine if caching should be used. Default value is true."
     required: false
     default: "true"
+outputs:
+  used-cache:
+    description: "Indicates whether the cache was used or not."
+    value: ${{ steps.install.outputs.cache }}
 runs:
   using: "composite"
   steps:
@@ -19,6 +23,9 @@ runs:
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
 
     - name: Install dependencies
+      id: install
       if: steps.cache.outputs.cache-hit != 'true' || inputs.is-caching != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "::set-output name=cache::'${{ inputs.is-caching }}'"
       shell: bash
