@@ -1,4 +1,4 @@
-name: Deployment 1
+name: Deployment 1 - Composite Actions
 on:
   push:
     branches:
@@ -78,3 +78,9 @@ jobs:
 
       - name: Deploy site
         run: echo "Deploying..."
+  information:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run custom javascript action
+        uses: ./.github/actions/deploy-s3-javascript
