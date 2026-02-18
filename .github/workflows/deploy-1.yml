@@ -12,6 +12,8 @@ jobs:
 
       - name: Load and cache dependencies
         uses: ./.github/actions/cache-deps
+        with:
+          is-caching: "false"
 
       - name: Lint code
         run: npm run lint
