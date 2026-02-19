@@ -1,9 +1,8 @@
-name: Deployment to AWS S3 with JS
-on: workflow_dispatch
-# on:
-#   push:
-#     branches:
-#       - main
+name: Deployment to AWS S3 with Docker/Python
+on:
+  push:
+    branches:
+      - main
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -80,7 +79,7 @@ jobs:
 
       - name: Deploy site to S3
         id: s3deploy
-        uses: ./.github/actions/deploy-s3-javascript
+        uses: ./.github/actions/deploy-s3-docker-python
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
