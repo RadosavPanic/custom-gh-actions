@@ -15,11 +15,12 @@ def run():
 
     for root, subdirs, files in os.walk(dist_folder):
         for file in files:
+            content_type = mimetypes.guess_type(file)[0] or "application/octet-stream"
             s3_client.upload_file(
                 os.path.join(root, file),
                 s3_bucket_name,
                 os.path.join(root, file).replace(dist_folder + '/', ''),
-                ExtraArgs={"ContentType": mimetypes.guess_type(file)[0]}
+                ExtraArgs={"ContentType": content_type}
             )
 
     website_url = f'http://{s3_bucket_name}.s3-website-{s3_region}.amazonaws.com'
