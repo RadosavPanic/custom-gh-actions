@@ -14,10 +14,6 @@ function run() {
   // 2) Upload files
   const s3Uri = `s3://${s3BucketName}`;
   exec.exec(`aws s3 sync ${distFolder} ${s3Uri} --region ${s3Region}`);
-
-  setTimeout(() => {
-    core.notice("Deployment to AWS S3 completed successfully!");
-  }, 2000);
 }
 
 run();
