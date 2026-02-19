@@ -1,4 +1,4 @@
-name: Deployment 1 - Composite Actions
+name: Deployment to AWS S3
 on:
   push:
     branches:
@@ -62,6 +62,7 @@ jobs:
 
   deploy:
     needs: build
+    environment: deploying
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -76,14 +77,12 @@ jobs:
       - name: Output contents
         run: ls
 
-      - name: Deploy site
-        run: echo "Deploying..."
-  information:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v6
-
-      - name: Run custom javascript action
+      - name: Deploy site to S3
         uses: ./.github/actions/deploy-s3-javascript
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          S3_REGION: ${{ secrets.S3_REGION }}
+          DIST_FOLDER: ./dist

@@ -1,14 +1,14 @@
 name: "Deploy to AWS S3"
 description: "Deploy a static website via AWS S3"
 inputs:
-  s3_bucket name:
+  S3_BUCKET_NAME:
     description: "S3 Bucket name"
     required: true
-  s3_region:
+  S3_REGION:
     description: "S3 Bucket region"
     required: false
     default: "us-east-1"
-  dist-folder:
+  DIST_FOLDER:
     description: "Distribution folder"
     required: true
 runs:

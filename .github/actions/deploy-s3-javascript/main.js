@@ -5,9 +5,9 @@ const exec = require("@actions/exec");
 function run() {
   // 1) Get input parameters
   core.notice("Obtaining AWS S3 Parameters...");
-  const s3BucketName = core.getInput("s3_bucket_name", { required: true });
-  const s3Region = core.getInput("s3_region", { required: true });
-  const distFolder = core.getInput("dist-folder", { required: true });
+  const s3BucketName = core.getInput("S3_BUCKET_NAME", { required: true });
+  const s3Region = core.getInput("S3_REGION", { required: true });
+  const distFolder = core.getInput("DIST_FOLDER", { required: true });
 
   core.notice("Starting deployment to AWS S3...");
 
