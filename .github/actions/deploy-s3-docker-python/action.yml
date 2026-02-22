@@ -7,7 +7,7 @@ inputs:
   S3_REGION:
     description: "S3 Bucket region"
     required: false
-    default: "us-east-1"
+    # default: "us-east-1"
   DIST_FOLDER:
     description: "Distribution folder"
     required: true
