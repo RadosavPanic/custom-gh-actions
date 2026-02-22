@@ -61,6 +61,9 @@ jobs:
           path: dist
 
   deploy:
+    permissions:
+      id-token: write
+      contents: read
     needs: build
     environment: deploying
     runs-on: ubuntu-latest
@@ -77,15 +80,17 @@ jobs:
       - name: Output contents
         run: ls
 
+      - name: Get AWS Permissions
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::051180986309:role/GitHubDemo1
+          aws-region: us-east-1
+
       - name: Deploy site to S3
         id: s3deploy
         uses: ./.github/actions/deploy-s3-docker-python
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-          S3_REGION: ${{ secrets.S3_REGION }}
+          S3_BUCKET_NAME: gha-security-hostings-demos
           DIST_FOLDER: ./dist
 
       - name: Output Information
