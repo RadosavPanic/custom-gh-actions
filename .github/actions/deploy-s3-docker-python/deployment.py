@@ -23,7 +23,7 @@ def run():
                 ExtraArgs={"ContentType": content_type}
             )
 
-    website_url = f'http://{s3_bucket_name}.s3-website-{s3_region}.amazonaws.com'
+    website_url = f'http://{s3_bucket_name}.s3-website.{s3_region}.amazonaws.com'
     with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_output:
         print(f'website-url={website_url}', file=gh_output)
 

@@ -84,13 +84,14 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: arn:aws:iam::051180986309:role/GitHubDemo1
-          aws-region: us-east-1
+          aws-region: eu-central-1
 
       - name: Deploy site to S3
         id: s3deploy
         uses: ./.github/actions/deploy-s3-docker-python
         with:
           S3_BUCKET_NAME: gha-security-hostings-demos
+          S3_REGION: eu-central-1
           DIST_FOLDER: ./dist
 
       - name: Output Information
