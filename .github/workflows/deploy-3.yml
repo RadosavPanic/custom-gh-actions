@@ -88,4 +88,4 @@ jobs:
 
       - name: Output Information
         run: |
-          echo "Site successfully built and ready for deployment!"
+          echo "Site ready for deployment!"
