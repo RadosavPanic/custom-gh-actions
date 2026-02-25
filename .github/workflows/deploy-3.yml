@@ -1,9 +1,8 @@
-name: Deployment to AWS S3 with Docker/Python
-on: workflow_dispatch
-# on:
-#   push:
-#     branches:
-#       - main
+name: Deployment to Google Cloud
+on:
+  push:
+    branches:
+      - main
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -81,20 +80,12 @@ jobs:
       - name: Output contents
         run: ls
 
-      - name: Get AWS Permissions
-        uses: aws-actions/configure-aws-credentials@v6
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v3
         with:
-          role-to-assume: arn:aws:iam::051180986309:role/GitHubDemo1
-          aws-region: eu-central-1
-
-      - name: Deploy site to S3
-        id: s3deploy
-        uses: ./.github/actions/deploy-s3-docker-python
-        with:
-          S3_BUCKET_NAME: gha-security-hostings-demos
-          S3_REGION: eu-central-1
-          DIST_FOLDER: ./dist
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
 
       - name: Output Information
         run: |
-          echo "Live URL: ${{ steps.s3deploy.outputs.website-url }}"
+          echo "Site successfully built and ready for deployment!"
