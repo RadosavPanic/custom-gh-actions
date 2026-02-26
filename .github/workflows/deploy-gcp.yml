@@ -95,4 +95,4 @@ jobs:
 
       - name: Output Information
         run: |
-          echo "Live URL: ${{ steps.gcp-deploy.outputs.website-url }}"
+          echo "Live site: ${{ steps.gcp-deploy.outputs.website-url }}"
