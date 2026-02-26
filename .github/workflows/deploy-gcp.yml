@@ -86,6 +86,13 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
 
+      - name: Deploy to GCP
+        id: gcp-deploy
+        uses: ./.github/actions/deploy-gcp-py
+        with:
+          GCP_BUCKET_NAME: ${{ secrets.GCP_BUCKET_NAME }}
+          DIST_FOLDER: ./dist
+
       - name: Output Information
         run: |
-          echo "Site successfully built and ready for deployment!"
+          echo "Live URL: ${{ steps.gcp-deploy.outputs.website-url }}"
